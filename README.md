@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatxo</title>
+    <title>Chatxo - Go Live</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,27 +13,29 @@
             color: white;
         }
         header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
             background-color: #333;
-            padding: 20px;
-            text-align: center;
         }
         header h1 {
             color: #ff69b4;
-            font-size: 2.5em;
             margin: 0;
+            font-size: 1.8em;
         }
-        nav {
-            text-align: center;
-            margin-top: 20px;
+        header .nav-buttons button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1em;
         }
-        nav a {
-            color: #ff69b4;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2em;
-        }
-        nav a:hover {
-            text-decoration: underline;
+        header .nav-buttons button:hover {
+            background: #e04898;
         }
         .container {
             padding: 20px;
@@ -97,22 +99,19 @@
 <body>
     <header>
         <h1>Chatxo</h1>
+        <div class="nav-buttons">
+            <button onclick="goLive()">Go Live</button>
+            <button onclick="openSettings()">Settings</button>
+            <button onclick="openAccount()">Account</button>
+        </div>
     </header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#chat">Live Chat</a>
-    </nav>
     <div class="container" id="home">
         <h2>Welcome to Chatxo</h2>
         <p>Your platform for connecting live. Explore, chat, and enjoy the experience.</p>
     </div>
     <div class="container chat-container" id="chat">
-        <div class="viewer-count">Viewers: <span id="viewerCount">100</span></div>
-        <div class="messages" id="messages">
-            <div class="message"><span>viewer123:</span> You're amazing!</div>
-            <div class="message donation"><span>donor45:</span> Donated $10 - Keep it up!</div>
-            <div class="message"><span>viewer56:</span> So cool to see this!</div>
-        </div>
+        <div class="viewer-count">Viewers: <span id="viewerCount">75</span></div>
+        <div class="messages" id="messages"></div>
         <div class="fake-input">
             <input type="text" id="userMessage" placeholder="Type your message...">
             <button onclick="sendMessage()">Send</button>
@@ -123,18 +122,24 @@
         const messages = document.getElementById('messages');
         const viewerCount = document.getElementById('viewerCount');
 
-        // Simulate fake viewer count fluctuation
+        // Simulate slow viewer fluctuation
         setInterval(() => {
-            const viewers = Math.floor(Math.random() * (153 - 40 + 1)) + 40;
-            viewerCount.textContent = viewers;
-        }, 3000);
+            const change = Math.random() < 0.5 ? 1 : -1;
+            const currentViewers = parseInt(viewerCount.textContent);
+            if (currentViewers + change >= 68 && currentViewers + change <= 80) {
+                viewerCount.textContent = currentViewers + change;
+            }
+        }, 5000);
 
-        // Fake donations and comments
+        // Simulate random comments
         setInterval(() => {
+            if (Math.random() < 0.5) return; // 50% chance of no new message
+
             const fakeComments = [
-                { user: 'viewer88', message: 'Wow, looking great!' },
-                { user: 'donor99', message: 'Donated $5 - Love this!', isDonation: true },
-                { user: 'fanGirl22', message: 'This is awesome!' },
+                { user: 'viewer88', message: 'Love the vibe here!' },
+                { user: 'donor23', message: 'Donated $10 - Keep it up!', isDonation: true },
+                { user: 'fan123', message: 'Amazing content, keep going!' },
+                { user: 'newFan22', message: 'Just joined, this is awesome!' }
             ];
 
             const randomComment = fakeComments[Math.floor(Math.random() * fakeComments.length)];
@@ -145,9 +150,9 @@
             newMessage.innerHTML = `<span>${randomComment.user}:</span> ${randomComment.message}`;
             messages.appendChild(newMessage);
             messages.scrollTop = messages.scrollHeight;
-        }, 5000);
+        }, 8000);
 
-        // Allow users to add messages
+        // User sends a message
         function sendMessage() {
             const userMessage = document.getElementById('userMessage').value;
             if (!userMessage) return;
@@ -157,7 +162,20 @@
             newMessage.innerHTML = `<span>You:</span> ${userMessage}`;
             messages.appendChild(newMessage);
             messages.scrollTop = messages.scrollHeight;
+
             document.getElementById('userMessage').value = '';
+        }
+
+        function goLive() {
+            alert('Go Live functionality coming soon!');
+        }
+
+        function openSettings() {
+            alert('Settings page coming soon!');
+        }
+
+        function openAccount() {
+            alert('Account creation coming soon!');
         }
     </script>
 </body>
