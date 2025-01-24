@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatxo - Go Live</title>
+    <title>Chatxo Live</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
             background-color: #1a1a1a;
             color: white;
         }
@@ -16,49 +15,66 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
             background-color: #333;
+            padding: 10px 20px;
         }
         header h1 {
             color: #ff69b4;
-            margin: 0;
             font-size: 1.8em;
+            margin: 0;
         }
-        header .nav-buttons button {
-            background: #ff69b4;
+        header nav {
+            display: flex;
+            gap: 15px;
+        }
+        header nav a {
             color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
+            text-decoration: none;
             font-size: 1em;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
-        header .nav-buttons button:hover {
-            background: #e04898;
+        header nav a:hover {
+            background-color: #ff69b4;
+            color: white;
         }
-        .container {
+        .hero {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             padding: 20px;
-            text-align: center;
+            background-color: #2c2c2c;
         }
-        .chat-container {
+        .hero img {
+            max-width: 200px;
+            height: auto;
+            margin: 10px;
+            border-radius: 10px;
+            border: 2px solid #444;
+        }
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 20px auto;
-            max-width: 800px;
-            background: #2c2c2c;
+            max-width: 1000px;
+            background-color: #2c2c2c;
             border-radius: 8px;
             padding: 20px;
         }
         .viewer-count {
-            font-size: 1.2em;
             margin-bottom: 10px;
+            font-size: 1.2em;
         }
         .messages {
+            width: 100%;
             height: 300px;
             overflow-y: auto;
             border: 1px solid #444;
             padding: 10px;
             border-radius: 4px;
             background: #1e1e1e;
+            margin-bottom: 10px;
         }
         .message {
             margin-bottom: 10px;
@@ -72,7 +88,7 @@
         }
         .fake-input {
             display: flex;
-            margin-top: 15px;
+            width: 100%;
         }
         .fake-input input {
             flex: 1;
@@ -81,6 +97,7 @@
             border-radius: 4px;
             background: #1e1e1e;
             color: white;
+            margin-right: 10px;
         }
         .fake-input button {
             padding: 10px 20px;
@@ -88,71 +105,86 @@
             border-radius: 4px;
             background: #ff69b4;
             color: white;
-            margin-left: 10px;
             cursor: pointer;
         }
         .fake-input button:hover {
             background: #e04898;
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Chatxo</h1>
-        <div class="nav-buttons">
-            <button onclick="goLive()">Go Live</button>
-            <button onclick="openSettings()">Settings</button>
-            <button onclick="openAccount()">Account</button>
-        </div>
+        <h1>Chatxo Live</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Go Live</a>
+            <a href="#">Settings</a>
+            <a href="#">Profile</a>
+        </nav>
     </header>
-    <div class="container" id="home">
-        <h2>Welcome to Chatxo</h2>
-        <p>Your platform for connecting live. Explore, chat, and enjoy the experience.</p>
+
+    <div class="hero">
+        <img src="https://via.placeholder.com/200" alt="Live Chat 1">
+        <img src="https://via.placeholder.com/200" alt="Live Chat 2">
+        <img src="https://via.placeholder.com/200" alt="Live Chat 3">
+        <img src="https://via.placeholder.com/200" alt="Live Chat 4">
     </div>
-    <div class="container chat-container" id="chat">
-        <div class="viewer-count">Viewers: <span id="viewerCount">75</span></div>
-        <div class="messages" id="messages"></div>
+
+    <div class="chat-section">
+        <div class="viewer-count">Viewers: <span id="viewerCount">72</span></div>
+        <div class="messages" id="messages">
+            <div class="message"><span>user123:</span> You're doing great!</div>
+            <div class="message donation"><span>donor99:</span> Donated $10 - Keep it up!</div>
+        </div>
         <div class="fake-input">
             <input type="text" id="userMessage" placeholder="Type your message...">
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
+    <footer>
+        &copy; 2025 Chatxo. All rights reserved.
+    </footer>
+
     <script>
         const messages = document.getElementById('messages');
         const viewerCount = document.getElementById('viewerCount');
 
-        // Simulate slow viewer fluctuation
+        // Viewer count fluctuation logic
         setInterval(() => {
-            const change = Math.random() < 0.5 ? 1 : -1;
-            const currentViewers = parseInt(viewerCount.textContent);
-            if (currentViewers + change >= 68 && currentViewers + change <= 80) {
-                viewerCount.textContent = currentViewers + change;
+            const change = Math.random() > 0.5 ? 1 : -1;
+            const currentCount = parseInt(viewerCount.textContent);
+            const newCount = Math.max(68, Math.min(80, currentCount + change));
+            viewerCount.textContent = newCount;
+        }, 4000);
+
+        // Fake messages
+        setInterval(() => {
+            if (Math.random() > 0.3) {
+                const fakeMessages = [
+                    { user: 'viewer42', message: 'Looking awesome!' },
+                    { user: 'donor88', message: 'Donated $5 - Keep going!', isDonation: true },
+                    { user: 'fanGirl22', message: 'Love this stream!' },
+                ];
+
+                const randomMessage = fakeMessages[Math.floor(Math.random() * fakeMessages.length)];
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                if (randomMessage.isDonation) newMessage.classList.add('donation');
+                newMessage.innerHTML = `<span>${randomMessage.user}:</span> ${randomMessage.message}`;
+                messages.appendChild(newMessage);
+                messages.scrollTop = messages.scrollHeight;
             }
         }, 5000);
 
-        // Simulate random comments
-        setInterval(() => {
-            if (Math.random() < 0.5) return; // 50% chance of no new message
-
-            const fakeComments = [
-                { user: 'viewer88', message: 'Love the vibe here!' },
-                { user: 'donor23', message: 'Donated $10 - Keep it up!', isDonation: true },
-                { user: 'fan123', message: 'Amazing content, keep going!' },
-                { user: 'newFan22', message: 'Just joined, this is awesome!' }
-            ];
-
-            const randomComment = fakeComments[Math.floor(Math.random() * fakeComments.length)];
-            const newMessage = document.createElement('div');
-            newMessage.classList.add('message');
-            if (randomComment.isDonation) newMessage.classList.add('donation');
-
-            newMessage.innerHTML = `<span>${randomComment.user}:</span> ${randomComment.message}`;
-            messages.appendChild(newMessage);
-            messages.scrollTop = messages.scrollHeight;
-        }, 8000);
-
-        // User sends a message
+        // User message
         function sendMessage() {
             const userMessage = document.getElementById('userMessage').value;
             if (!userMessage) return;
@@ -162,20 +194,7 @@
             newMessage.innerHTML = `<span>You:</span> ${userMessage}`;
             messages.appendChild(newMessage);
             messages.scrollTop = messages.scrollHeight;
-
             document.getElementById('userMessage').value = '';
-        }
-
-        function goLive() {
-            alert('Go Live functionality coming soon!');
-        }
-
-        function openSettings() {
-            alert('Settings page coming soon!');
-        }
-
-        function openAccount() {
-            alert('Account creation coming soon!');
         }
     </script>
 </body>
