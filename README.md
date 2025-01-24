@@ -3,78 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatxo Live</title>
+    <title>Live Chat Mock-Up</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: #1a1a1a;
-            color: white;
+            color: #fff;
         }
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             background-color: #333;
-            padding: 10px 20px;
+            padding: 20px;
+            text-align: center;
         }
         header h1 {
             color: #ff69b4;
-            font-size: 1.8em;
+            font-size: 2.5em;
             margin: 0;
         }
-        header nav {
-            display: flex;
-            gap: 15px;
-        }
-        header nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1em;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        header nav a:hover {
-            background-color: #ff69b4;
-            color: white;
-        }
-        .hero {
+        nav {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            padding: 20px;
-            background-color: #2c2c2c;
+            gap: 15px;
+            padding: 10px 0;
+            background: #444;
         }
-        .hero img {
-            max-width: 200px;
-            height: auto;
-            margin: 10px;
-            border-radius: 10px;
-            border: 2px solid #444;
-        }
-        .chat-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px auto;
-            max-width: 1000px;
-            background-color: #2c2c2c;
-            border-radius: 8px;
-            padding: 20px;
-        }
-        .viewer-count {
-            margin-bottom: 10px;
+        nav a {
+            color: #ff69b4;
+            text-decoration: none;
             font-size: 1.2em;
         }
-        .messages {
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        .live-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .live-box {
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .live-box img {
             width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .live-box .username {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .chat-container {
+            background: #2c2c2c;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .viewer-count {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .messages {
             height: 300px;
             overflow-y: auto;
             border: 1px solid #444;
             padding: 10px;
             border-radius: 4px;
             background: #1e1e1e;
-            margin-bottom: 10px;
+            text-align: left;
         }
         .message {
             margin-bottom: 10px;
@@ -88,7 +94,7 @@
         }
         .fake-input {
             display: flex;
-            width: 100%;
+            margin-top: 15px;
         }
         .fake-input input {
             flex: 1;
@@ -97,7 +103,6 @@
             border-radius: 4px;
             background: #1e1e1e;
             color: white;
-            margin-right: 10px;
         }
         .fake-input button {
             padding: 10px 20px;
@@ -105,86 +110,102 @@
             border-radius: 4px;
             background: #ff69b4;
             color: white;
+            margin-left: 10px;
             cursor: pointer;
         }
         .fake-input button:hover {
             background: #e04898;
         }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Chatxo Live</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Go Live</a>
-            <a href="#">Settings</a>
-            <a href="#">Profile</a>
-        </nav>
+        <h1>Live Chat Mock-Up</h1>
     </header>
-
-    <div class="hero">
-        <img src="https://via.placeholder.com/200" alt="Live Chat 1">
-        <img src="https://via.placeholder.com/200" alt="Live Chat 2">
-        <img src="https://via.placeholder.com/200" alt="Live Chat 3">
-        <img src="https://via.placeholder.com/200" alt="Live Chat 4">
-    </div>
-
-    <div class="chat-section">
-        <div class="viewer-count">Viewers: <span id="viewerCount">72</span></div>
-        <div class="messages" id="messages">
-            <div class="message"><span>user123:</span> You're doing great!</div>
-            <div class="message donation"><span>donor99:</span> Donated $10 - Keep it up!</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#live">Go Live</a>
+        <a href="#settings">Settings</a>
+    </nav>
+    <div class="main-container" id="home">
+        <h2>Welcome to Live Chat</h2>
+        <p>Explore live streams or start your own broadcast!</p>
+        <div class="live-grid">
+            <div class="live-box">
+                <img src="https://via.placeholder.com/300x200" alt="Live Stream">
+                <p class="username">User123</p>
+            </div>
+            <div class="live-box">
+                <img src="https://via.placeholder.com/300x200" alt="Live Stream">
+                <p class="username">Streamer456</p>
+            </div>
         </div>
-        <div class="fake-input">
-            <input type="text" id="userMessage" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
+    </div>
+    <div class="main-container" id="live">
+        <div class="chat-container">
+            <div class="viewer-count">Viewers: <span id="viewerCount">75</span></div>
+            <div class="messages" id="messages">
+                <div class="message"><span>User789:</span> Wow, nice setup!</div>
+            </div>
+            <div class="fake-input">
+                <input type="text" id="userMessage" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
-
-    <footer>
-        &copy; 2025 Chatxo. All rights reserved.
-    </footer>
-
     <script>
         const messages = document.getElementById('messages');
         const viewerCount = document.getElementById('viewerCount');
 
-        // Viewer count fluctuation logic
+        // Simulate slow fluctuating viewer count
         setInterval(() => {
-            const change = Math.random() > 0.5 ? 1 : -1;
-            const currentCount = parseInt(viewerCount.textContent);
-            const newCount = Math.max(68, Math.min(80, currentCount + change));
-            viewerCount.textContent = newCount;
-        }, 4000);
-
-        // Fake messages
-        setInterval(() => {
-            if (Math.random() > 0.3) {
-                const fakeMessages = [
-                    { user: 'viewer42', message: 'Looking awesome!' },
-                    { user: 'donor88', message: 'Donated $5 - Keep going!', isDonation: true },
-                    { user: 'fanGirl22', message: 'Love this stream!' },
-                ];
-
-                const randomMessage = fakeMessages[Math.floor(Math.random() * fakeMessages.length)];
-                const newMessage = document.createElement('div');
-                newMessage.classList.add('message');
-                if (randomMessage.isDonation) newMessage.classList.add('donation');
-                newMessage.innerHTML = `<span>${randomMessage.user}:</span> ${randomMessage.message}`;
-                messages.appendChild(newMessage);
-                messages.scrollTop = messages.scrollHeight;
-            }
+            const viewers = Math.random() > 0.5 ? viewerCount.textContent++ : viewerCount.textContent--;
         }, 5000);
 
-        // User message
+        // Simulated random chat messages
+        const randomMessages = [
+            "Pull it out",
+            "mmmm",
+            "I like ur arms",
+            "hi",
+            "dhdhshsshfskskajkak",
+            "where are you located?",
+            "can you d",
+            "Do you prefer morf",
+            "secxcxcx",
+            "xoxo",
+            "wowwwwwa",
+            "holyshit",
+            "yes."
+        ];
+
+        setInterval(() => {
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('message');
+            newMessage.innerHTML = `<span>User${Math.floor(Math.random() * 1000)}:</span> ${randomMessages[Math.floor(Math.random() * randomMessages.length)]}`;
+            messages.appendChild(newMessage);
+            messages.scrollTop = messages.scrollHeight;
+        }, 182000); // 3 minutes 2 seconds
+
+        // Simulated donations
+        const donationMessages = [
+            "where are you located?",
+            "I'm hungry for you",
+            "Do you do private chats?"
+        ];
+
+        let donationIndex = 0;
+        setInterval(() => {
+            const newDonation = document.createElement('div');
+            newDonation.classList.add('message', 'donation');
+            newDonation.innerHTML = `<span>Donor1:</span> ${donationMessages[donationIndex]}`;
+            messages.appendChild(newDonation);
+            messages.scrollTop = messages.scrollHeight;
+
+            donationIndex = (donationIndex + 1) % donationMessages.length;
+        }, 360000); // 6 minutes
+
+        // Allow users to send messages
         function sendMessage() {
             const userMessage = document.getElementById('userMessage').value;
             if (!userMessage) return;
@@ -194,7 +215,6 @@
             newMessage.innerHTML = `<span>You:</span> ${userMessage}`;
             messages.appendChild(newMessage);
             messages.scrollTop = messages.scrollHeight;
-            document.getElementById('userMessage').value = '';
         }
     </script>
 </body>
